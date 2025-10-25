@@ -191,7 +191,7 @@ func newCache[K comparable, V any](o *Options[K, V]) *cache[K, V] {
 	}
 	if c.withExpiration {
 		c.doneClose = make(chan struct{})
-		go c.periodicCleanUp()
+		c.executor(c.periodicCleanUp)
 	}
 
 	if c.withEviction {
